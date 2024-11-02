@@ -3,12 +3,12 @@ export default defineNuxtRouteMiddleware(to => {
 	const auth = to.meta.auth
 
 	if (auth) {
-		if (!loggedIn.value) {
-			return navigateTo('/auth/login')
+		if (auth === 'invitado' && loggedIn.value) {
+			return navigateTo('/admin')
 		}
 
-		if (auth === 'invitado') {
-			return navigateTo('/admin')
+		if (auth !== 'invitado' && !loggedIn.value) {
+			return navigateTo('/auth/login')
 		}
 	}
 })
